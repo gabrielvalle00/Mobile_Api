@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, SafeAreaView, TouchableOpacity, View, Image } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, TouchableOpacity, View, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+
+
 
 export default function Home() {
     const navigation = useNavigation();
@@ -18,10 +21,28 @@ export default function Home() {
         navigation.navigate('TodosClientes');
     };
 
+
+    const [showAlert, setShowAlert] = useState(false);
+
+    const exibirAlerta = () => {
+        Alert.alert(
+            'Equipe de Devs',
+            'Gabriel Valle || George || Thaís Schmidt',
+            [{ text: 'OK', onPress: () => setShowAlert(true) }]
+        );
+    };
+
     return (
         <SafeAreaView style={styles.container}>
 
-          
+            <TouchableOpacity onPress={exibirAlerta}>
+                <View style={{ marginLeft: 350 }}>
+                    <FontAwesome5 name='info-circle' color='purple' size={32}></FontAwesome5>
+                </View>
+            </TouchableOpacity>
+
+
+
 
             <View style={styles.card}>
                 <Image source={require('../../assets/Id.png')} style={styles.cardImage} />
@@ -43,7 +64,7 @@ export default function Home() {
                     <Text style={styles.buttonText}>Exibir Todos os Clientes</Text>
                 </TouchableOpacity>
             </View>
-            
+
             <StatusBar style="auto" />
         </SafeAreaView>
     );
@@ -61,7 +82,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 10,
         padding: 20,
-        width:'75%',
+        width: '75%',
         marginBottom: 20,
         shadowColor: '#000',
         shadowOffset: {
